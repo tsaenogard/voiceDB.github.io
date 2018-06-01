@@ -39,11 +39,17 @@ img{
 <div id="status"></div>
 <script type="text/javascript">
 var mystatus = document.getElementById("status");
-navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
-if(!navigator.getUserMedia){
+    
+    var constraints = { audio: true, video: true };
+    
+    
+navigator.mediaDevices.getUserMedia = navigator.mediaDevices.getUserMedia || navigator.mediaDevices.webkitGetUserMedia || navigator.mediaDevices.mozGetUserMedia || navigator.mediaDevices.msGetUserMedia;
+if(!navigator.mediaDevices.getUserMedia){
 	mystatus.innerHTML = "您的浏览器不支持获取音频。"
 }
-navigator.getUserMedia({audio: true}, onSuccess, onError); //调用麦克风捕捉音频信息，成功时触发onSuccess函数，失败时触发onError函数
+    
+//    MediaDevices.getUserMedia();
+navigator.mediaDevices.getUserMedia({audio: true}, onSuccess, onError); //调用麦克风捕捉音频信息，成功时触发onSuccess函数，失败时触发onError函数
 function onSuccess(stream){
 	audioContext = window.AudioContext || window.webkitAudioContext;
 	context = new audioContext(); //创建一个管理、播放声音的对象
